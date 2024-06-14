@@ -1,0 +1,26 @@
+name: Test Java Project
+
+description: Tests the project using JUnit.
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4.2.1
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5
+
+    - name: chmod gradlew
+      run: chmod +x ./gradlew
+      shell: bash
+
+    - name: Run JUnit tests
+      run: ./gradlew test
+      shell: bash

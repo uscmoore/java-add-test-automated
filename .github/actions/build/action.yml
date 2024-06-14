@@ -1,0 +1,26 @@
+name: Build Java Project
+
+description: Builds the project.
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4.2.1
+      with:
+        java-version: '11'  # Choose the desired Java version (e.g., 8, 11, 16)
+        distribution: 'adopt'
+
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5
+
+    - name: chmod gradlew
+      run: chmod +x ./gradlew
+      shell: bash
+
+    - name: Compile Java code
+      run:  ./gradlew compileJava  # Adjust the source and output directories
+      shell: bash
